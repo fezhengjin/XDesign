@@ -7,6 +7,7 @@ const debug = require('debug')('http');
 import qs from 'querystring';
 import fs from 'fs';
 import path from 'path';
+import config from '../config';
 
 const cacheDir = './cache';
 
@@ -88,7 +89,7 @@ function parseListToDirs(list, token, callback) {
 var token = null;
 var clientId = '8d6d604ca104dac41de1';
 var clientSecret = '56b57074aba13c1f189e4e3a7c5f0f9fd7947ecb';
-var redirectUri = 'http://192.168.1.37:3000/github_auth';
+var redirectUri = `http://${config.host}/github_auth`;
 var scope = 'user,repo';
 
 /* GET home page. */
