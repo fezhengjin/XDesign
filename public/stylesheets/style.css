@@ -1,0 +1,60 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ddd;
+}
+
+a {
+  color: #00B7FF;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul li {
+  float: left;
+  margin: 0 10px 10px 0;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+ul li img {
+  border: 1px solid #767676;
+}
+
+ul li div {
+  max-width: 302px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+ul li div span {
+  color: #666;
+}
+
+.dimmer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #000;
+  display: none;
+}
+
+.dimmer .photo {
+  max-width: 80%;
+  max-height: 80%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  cursor: -webkit-zoom-out;
+  cursor: zoom-out;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}

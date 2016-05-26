@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <p>XSKY UI Design Platform</p>
+    {{#dirs}}
+      <h3>{{ title }}</h3>
+      <ul>
+      {{#children}}
+      <li class="js-thumb">
+        <div><img width="300" title="{{ title }}" src="data:image/jpeg;base64,{{ content }}"/></div>
+        <div><span>{{ name }}</span></div>
+      </li>
+      {{/children}}
+      </ul>
+    {{/dirs}}
+    <div class="dimmer">
+      <img class="photo" src="/images/loading.gif" />
+    </div>
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script>
+    var $dimmer = $('.dimmer');
+    var $photo = $('.photo');
+    $(document).on('click', '.js-thumb', function() {
+      var photoSrc = $(this).find('img').attr('src');
+      $photo.attr('src', photoSrc);
+      $dimmer.show();
+    }).on('click', '.photo', function() {
+      $dimmer.hide();
+    }).on('keyup', function(event) {
+      if (event.keyCode === 27) {
+        $dimmer.hide();
+      }
+    });
+    </script>
+  </body>
+</html>
