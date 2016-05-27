@@ -9,7 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import config from '../config';
 
-const cacheDir = './cache';
+const cacheDir = path.resolve('./cache');
 
 function isImage(item) {
   const { type, path } = item;
@@ -102,7 +102,7 @@ router.get('/', function(req, res, next) {
 
   if (!token) {
     const query = qs.stringify({
-      redirect_uri: redirectUri + '?product=' + product,
+      //redirect_uri: redirectUri + '?product=' + product,
       scope,
       client_id: clientId,
     });
@@ -130,7 +130,7 @@ router.get('/', function(req, res, next) {
 /* Auth Handler*/
 router.get('/github_auth', function(req, res, next) {
   if (!req.query.code) {
-    res.render('缺少github返回的code');
+    res.end('缺少github返回的code');
     return;
   }
 
@@ -148,14 +148,14 @@ router.get('/github_auth', function(req, res, next) {
   function callback(err, _res, body) {
     if (err) {
       res.statusCode = 500;
-      res.render('Internal Server Error');
+      res.end('Internal Server Error');
       return;
     }
     if (body && body.access_token) {
       token = body.access_token;
-      res.redirect(`/?product=${req.query.product}`);
+      res.redirect('/');
     } else {
-      res.render('缺少github返回的token');
+      res.end('缺少github返回的token');
     }
   }
 

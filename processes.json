@@ -4,6 +4,8 @@
         "script": "./bin/www",
         "watch": false,
         "exec_interpreter" : "babel-node",
-        "exec_mode": "fork"
+        "exec_mode": "fork",
+	"out_file": "./out.log",
+	"error_file": "./error.log",
     }]
 }
