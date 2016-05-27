@@ -13,7 +13,7 @@
       <ul>
       {{#children}}
       <li class="js-thumb">
-        <div><img width="300" title="{{ title }}" src="data:image/jpeg;base64,{{ content }}"/></div>
+        <div><img width="300" title="{{ title }}" src="{{ url }}"/></div>
         <div><span>{{ name }}</span></div>
       </li>
       {{/children}}

@@ -9,23 +9,19 @@ import fs from 'fs';
 import path from 'path';
 import config from '../config';
 
-const cacheDir = path.resolve('./cache');
+const cacheDir = path.resolve('./public/cache');
 
 function isImage(item) {
   const { type, path } = item;
   return type === 'blob' && /\.(jpg|png|gif|jpeg)+/.test(path);
 }
 
-function getContentFromCache(item) {
-
+function isCached(item) {
   if (!fs.existsSync(cacheDir)) {
     fs.mkdirSync(cacheDir);
   }
   const files = fs.readdirSync(cacheDir);
-  if (files.some(file => file.includes(item.sha))) {
-    return fs.readFileSync(path.join(cacheDir, item.sha), 'utf8');
-  }
-  return null;
+  return files.some(file => file.includes(item.sha));
 }
 
 function parseListToDirs(list, token, callback) {
@@ -36,17 +32,16 @@ function parseListToDirs(list, token, callback) {
   var imageContentTasks = [];
   function getTask(item, token) {
     return function (cb) {
-      const cacheContent = getContentFromCache(item);
-      if (cacheContent) {
-        item.content = cacheContent;
-        return cb();
+      if (isCached(item)) {
+        item.url = `/cache/${item.sha}`;
+        cb();
       }
 
       var urlWithToken = [item.url, '?access_token=', token].join('');
       debug(urlWithToken);
       request(urlWithToken, function(err, res, body) {
         if (err) throw err;
-        item.content = JSON.parse(body).content;
+        item.url = 'data:image/jpeg;base64,' + JSON.parse(body).content;
         fs.writeFile(path.join(cacheDir, item.sha), item.content);
         cb();
       });
